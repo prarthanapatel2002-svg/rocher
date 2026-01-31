@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Music - Just a moment</title>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Cormorant+Garamond:wght@300;400;500;600&family=Libre+Baskerville:wght@400;700&family=Dancing+Script:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* =========================
+       ROMANTIC MEMORY BOOK STYLES
+    ========================= */
+    
+    .music-page {
+  min-height: 100vh;
+  position: relative;
+  background-image: url("./Assets/music-bg.png"); /* or your canva image */
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+
+    /* Intro Section */
+    .music-intro {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 4rem 2rem 3rem;
+      text-align: center;
+      opacity: 0;
+      animation: fadeInUp 1s ease-out 0.3s forwards;
+    }
+
+    .music-intro-text {
+      font-family: 'Dancing Script', cursive;
+      font-size: clamp(1.4rem, 3vw, 1.8rem);
+      font-weight: 400;
+      color: rgba(13, 27, 42, 0.8);
+      line-height: 1.8;
+      font-style: normal;
+      margin: 0;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Memory Book Container */
+    .memory-book {
+      position: relative;
+      width: 100%;
+    }
+
+    /* Memory Section - Each Letter */
+    .memory-section {
+      min-height: auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 3rem 4rem;
+      position: relative;
+      overflow: hidden;
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+      margin-bottom: 1.5rem;
+    }
+
+    .memory-section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Decorative Background Letter */
+    .section-letter {
+      position: absolute;
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(20rem, 40vw, 35rem);
+      font-weight: 700;
+      color: rgba(13, 27, 42, 0.03);
+      z-index: 0;
+      user-select: none;
+      pointer-events: none;
+      line-height: 1;
+      letter-spacing: -0.02em;
+    }
+
+    /* Section Content Container */
+    .section-content {
+      position: relative;
+      z-index: 2;
+      max-width: 600px;
+      width: 100%;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3rem;
+    }
+
+    /* Romantic Image/Album Art */
+    .section-image {
+      width: 100%;
+      max-width: 400px;
+      height: 400px;
+      object-fit: cover;
+      border-radius: 8px;
+      box-shadow: 
+        0 20px 60px rgba(13, 27, 42, 0.08),
+        0 8px 24px rgba(13, 27, 42, 0.04);
+      opacity: 0;
+      transform: scale(0.95);
+      transition: opacity 1s ease 0.3s, transform 1s ease 0.3s;
+      filter: brightness(1.02) contrast(0.98);
+    }
+
+    .memory-section.visible .section-image {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    /* Lyric Line */
+    .section-lyric {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      font-weight: 400;
+      color: rgba(13, 27, 42, 0.75);
+      font-style: italic;
+      line-height: 1.2;
+      letter-spacing: 0.02em;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.8s ease 0.5s, transform 0.8s ease 0.5s;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    .memory-section.visible .section-lyric {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Spotify Player Container */
+    .section-player {
+      width: 100%;
+      max-width: 500px;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.8s ease 0.7s, transform 0.8s ease 0.7s;
+    }
+
+    .memory-section.visible .section-player {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .section-player iframe {
+      width: 100%;
+      height: 400px;
+      border-radius: 12px;
+      border: none;
+    }
+
+    @media (max-width: 768px) {
+      .section-player iframe {
+        height: 300px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .section-player iframe {
+        height: 250px;
+      }
+    }
+
+    /* Song Title (Optional, subtle) */
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.2rem, 2vw, 1.5rem);
+      font-weight: 400;
+      color: rgba(13, 27, 42, 0.5);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: -1rem;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 0.6s ease 0.2s, transform 0.6s ease 0.2s;
+    }
+
+    .memory-section.visible .section-title {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* First Letter of Song Title - Different Color */
+    .section-title::first-letter {
+      color: #C9ADA7;
+      font-weight: 700;
+      font-size: 1.3em;
+    }
+
+    /* Parallax Effect on Scroll */
+    @media (prefers-reduced-motion: no-preference) {
+      .section-image {
+        transition: transform 0.3s ease-out;
+      }
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .music-intro {
+        padding: 3rem 1.5rem 2rem;
+      }
+
+      .memory-section {
+        padding: 4rem 2rem;
+        margin-bottom: 1rem;
+      }
+
+      .section-letter {
+        font-size: clamp(15rem, 50vw, 25rem);
+      }
+
+      .section-content {
+        gap: 1.5rem;
+      }
+
+      .section-image {
+        max-width: 320px;
+        height: 320px;
+      }
+
+      .section-lyric {
+        font-size: clamp(1.3rem, 4vw, 1.8rem);
+      }
+
+      .section-player iframe {
+        height: 300px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .music-intro {
+        padding: 2.5rem 1.25rem 1.5rem;
+      }
+
+      .music-intro-text {
+        font-size: clamp(1.2rem, 4vw, 1.6rem);
+      }
+
+      .memory-section {
+        padding: 3.5rem 1.5rem;
+        margin-bottom: 0.75rem;
+      }
+
+      .section-letter {
+        font-size: clamp(12rem, 60vw, 20rem);
+      }
+
+      .section-content {
+        gap: 2rem;
+      }
+
+      .section-image {
+        max-width: 280px;
+        height: 280px;
+      }
+
+      .section-lyric {
+        font-size: clamp(1.2rem, 5vw, 1.6rem);
+      }
+
+      .section-player iframe {
+        height: 280px;
+      }
+    }
+
+    /* Reduce motion for accessibility */
+    @media (prefers-reduced-motion: reduce) {
+      .music-intro,
+      .memory-section,
+      .section-image,
+      .section-lyric,
+      .section-player,
+      .section-title {
+        transition: none !important;
+        animation: none !important;
+      }
+
+      .music-intro,
+      .memory-section {
+        opacity: 1 !important;
+        transform: none !important;
+      }
+
+      .section-image,
+      .section-lyric,
+      .section-player,
+      .section-title {
+        opacity: 1 !important;
+        transform: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="music-page">
+    <!-- NAVBAR -->
+    <header class="navbar">
+      <div class="nav-logo">Rocher</div>
+      <nav class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="letters.html">Letters</a>
+        <a href="music.html">Music</a>
+        <a href="coupons.html">Coupons</a>
+        <a href="game.html">Game</a>
+      </nav>
+    </header>
+
+    <!-- INTRO -->
+    <div class="music-intro">
+      <p class="music-intro-text">
+        Music has always been an essential part of our story.<br>
+        We first connected through melodies, lyrics, and late-night songs.<br>
+        So here are a few songs that remind me of you, with some special messages hidden in them.
+      </p>
+    </div>
+
+    <!-- MEMORY BOOK -->
+    <main class="memory-book">
+      
+      <!-- I -->
+      <section class="memory-section" data-letter="I">
+        <div class="section-letter">I</div>
+        <div class="section-content">
+          <p class="section-title">Ishq Hai</p>
+          <img src="Assets/album-i.jpg" alt="Ishq Hai" class="section-image" onerror="this.style.display='none'">
+          <p class="section-lyric">"I still remmeber when I asked kya hai hamare bich and you said "Ishq hai" and that is so truee</p>
+          <div class="section-player">
+            <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/3vCzLB6kS2lGcIpm1OOUsy?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+          
+          </div>
+        </div>
+      </section>
+
+      <!-- L -->
+      <section class="memory-section" data-letter="L">
+        <div class="section-letter">L</div>
+        <div class="section-content">
+          <p class="section-title">Lover</p>
+          <img src="Assets/album-l.jpg" alt="Lover" class="section-image" onerror="this.style.display='none'">
+          <p class="section-lyric">"I take this magnetic force of a man to be my lover" You will always be min tu khali maru che, hu koi jode share nai kalu!</p>
+          <div class="section-player">
+            <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/1dGr1c8CrMLDpV6mPbImSI?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+          </div>
+        </div>
+      </section>
+
+      <!-- O (1) -->
+      <section class="memory-section" data-letter="O">
+        <div class="section-letter">O</div>
+        <div class="section-content">
+          <p class="section-title">O Rangrez</p>
+          <img src="Assets/album-o.jpg" alt="O Rangrez" class="section-image" onerror="this.style.display='none'">
+          <p class="section-lyric">"O rangrez, tere rang dariya mein, Doobna hai bas tera ban ke, haay, Nahi rehna dooja ban ke" Like we always say disolve hona hai ekdusre me.</p>
+          <div class="section-player">
+            <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/5JCDVLwteSXuwVqjCa7SwH?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+          </div>
+        </div>
+      </section>
+
+      <!-- V -->
+    <section class="memory-section" data-letter="V">
+  <div class="section-letter">V</div>
+
+  <div class="section-content">
+    <p class="section-title">Varoon</p>
+
+    <img src="Assets/album-v.jpg" alt="Varoon" class="section-image" onerror="this.style.display='none'">
+
+    <p class="section-lyric">
+      "Tohre sapne falak pe bithaa du, Kaala tika main tohe lagaa du."
+      <br>Kabhi apko nazra na lage.
+    </p>
+
+    <div class="section-player">
+      <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/4sgYmcu4FKb1ZC6qBlxMiw?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+    </div>
+
+  </div>
+</section>
+
+
+      <!-- E -->
+      <section class="memory-section" data-letter="E">
+        <div class="section-letter">E</div>
+        <div class="section-content">
+          <p class="section-title">Enna Sona</p>
+          <img src="Assets/album-e.jpg" alt="Enna Sona" class="section-image" onerror="this.style.display='none'">
+          <p class="section-lyric">"Enna sona kyun, Rabb ne banaya" Kyu hai tu itna pyaruuu kyuuu?</p>
+          <div class="section-player">
+           <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/6bdpj89aYEBjhpsenXAsmO?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+          </div>
+        </div>
+      </section>
+
+      <!-- Y -->
+      <section class="memory-section" data-letter="Y">
+        <div class="section-letter">Y</div>
+        <div class="section-content">
+          <p class="section-title">Yeh Raatein Yeh Mausam</p>
+          <img src="Assets/album-y.jpg" alt="You and I" class="section-image" onerror="this.style.display='none'">
+          <p class="section-lyric">"Ye baahon mein baahen, ye behki nigaahe" just ham dono ek dusre ki bahon me har raaton me</p>
+          <div class="section-player">
+            <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/0qoMztAhnuGPfTv0WeOOt9?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+          </div>
+        </div>
+      </section>
+
+      <!-- O (2) -->
+      <section class="memory-section" data-letter="O">
+        <div class="section-letter">O</div>
+        <div class="section-content">
+          <p class="section-title">O Re Piya</p>
+          <img src="Assets/album-o.jpg" alt="O Re Piya" class="section-image" onerror="this.style.display='none'">
+          <p class="section-lyric">"o re piya haaye, o re piya, udne laga kyun, man baawla re"</p>
+          <div class="section-player">
+            <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/7cWnks0lsRtpAi87COOiXK?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+          </div>
+        </div>
+      </section>
+
+      <!-- U -->
+      <section class="memory-section" data-letter="U">
+        <div class="section-letter">U</div>
+        <div class="section-content">
+          <p class="section-title">Until I Found You</p>
+          <img src="Assets/album-u.jpg" alt="Until I Found You" class="section-image" onerror="this.style.display='none'">
+          <p class="section-lyric">"I would never fall in love again until I found you" Apke sivaa kisi se pyaar nai kar payege.</p>
+          <div class="section-player">
+          <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/0T5iIrXA4p5GsubkhuBIKV?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+          </div>
+        </div>
+      </section>
+
+      <!-- J -->
+      <section class="memory-section" data-letter="J">
+        <div class="section-letter">J</div>
+        <div class="section-content">
+          <p class="section-title">Jaadoogari</p>
+          <img src="Assets/album-j.jpg" alt="Jadugari" class="section-image" onerror="this.style.display='none'">
+          <p class="section-lyric">"Kaisi alag si hai ye paheli, Kaisi gazab si ye Jaadoogari"</p>
+          <div class="section-player">
+            <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/6k2TVibnZaORINU61wKCtQ?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+          </div>
+        </div>
+      </section>
+
+      <!-- A -->
+      <section class="memory-section" data-letter="A">
+        <div class="section-letter">A</div>
+        <div class="section-content">
+          <p class="section-title">A thousand years</p>
+          <img src="Assets/album-a.jpg" alt="Saiban" class="section-image" onerror="this.style.display='none'">
+          <p class="section-lyric">"I have loved you for a thousand years, I'll love you for a thousand more". I will love youu foreverrr for a thousands years.</p>
+          <div class="section-player">
+           <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/6lanRgr6wXibZr8KgzXxBl?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+          </div>
+        </div>
+      </section>
+
+      <!-- S -->
+      <section class="memory-section" data-letter="S">
+        <div class="section-letter">S</div>
+        <div class="section-content">
+          <p class="section-title">Saiban</p>
+          <img src="Assets/album-s.jpg" alt="Saiban" class="section-image" onerror="this.style.display='none'">
+          <p class="section-lyric">"Hai tu meri saibaaa, Dil tujh pe qurbaan" I dont need to say anything in this one hehe!</p>
+          <div class="section-player">
+            <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/3rn4PxnE3D75ViL4ATuHUd?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+          </div>
+        </div>
+      </section>
+
+      <!-- H -->
+      <section class="memory-section" data-letter="H">
+        <div class="section-letter">H</div>
+        <div class="section-content">
+          <p class="section-title">Hona Tha Pyar</p>
+          <img src="Assets/album-h.jpg" alt="Hona Tha Pyar" class="section-image" onerror="this.style.display='none'">
+          <p class="section-lyric">"Hona tha pyaar, huwa mere yaar,Hona tha pyaar" Pata nai kab hua, kaise huaaa but ho gaya apse pyaar.</p>
+          <div class="section-player">
+           <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/1s6KrrJeBnn9dbmtYRUIEt?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      Made with love, just for you by your Tillu<span class="heart">❤️</span>
+    </footer>
+  </div>
+
+  <script>
+    // Scroll Animation - Fade in sections as they come into view
+    const observerOptions = {
+      root: null,
+      rootMargin: '0px',
+      threshold: 0.2
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, observerOptions);
+
+    // Observe all memory sections
+    document.querySelectorAll('.memory-section').forEach(section => {
+      observer.observe(section);
+    });
+
+    // Parallax effect on scroll (subtle)
+    let lastScrollY = window.scrollY;
+    const sections = document.querySelectorAll('.memory-section');
+
+    function handleParallax() {
+      const scrollY = window.scrollY;
+      const windowHeight = window.innerHeight;
+
+      sections.forEach(section => {
+        const rect = section.getBoundingClientRect();
+        const sectionTop = rect.top + scrollY;
+        const sectionCenter = sectionTop + rect.height / 2;
+        const distanceFromCenter = scrollY + windowHeight / 2 - sectionCenter;
+        const parallaxAmount = distanceFromCenter * 0.1;
+
+        const image = section.querySelector('.section-image');
+        if (image && section.classList.contains('visible')) {
+          image.style.transform = `translateY(${parallaxAmount}px) scale(1)`;
+        }
+      });
+
+      lastScrollY = scrollY;
+    }
+
+    // Throttle parallax for performance
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          handleParallax();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    });
+
+    // Initial check for sections already in view
+    document.querySelectorAll('.memory-section').forEach(section => {
+      const rect = section.getBoundingClientRect();
+      if (rect.top < window.innerHeight * 0.8) {
+        section.classList.add('visible');
+      }
+    });
+  </script>
+</body>
+</html>

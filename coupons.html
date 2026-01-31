@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Coupons - Just a moment</title>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=Poppins:wght@300;400;500;600&family=Cormorant+Garamond:wght@400;500&family=Dancing+Script:wght@500&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="coupons.css" />
+</head>
+<body>
+  <!-- NAVBAR -->
+  <header class="navbar">
+    <div class="nav-logo">Rocher</div>
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="letters.html">Letters</a>
+      <a href="music.html">Music</a>
+      <a href="coupons.html">Coupons</a>
+      <a href="game.html">Game</a>
+    </nav>
+  </header>
+
+  <!-- CONTENT -->
+  <main class="coupons-content">
+    <!-- HERO TEXT -->
+    <section class="coupons-hero">
+      <h1 class="hero-heading">Coupons for your special day &lt;3</h1>
+    </section>
+
+    <!-- TERMS & CONDITIONS -->
+    <section class="terms-section" id="terms-section">
+      <div class="terms-card">
+        <div class="terms-text">
+          Please accept these terms and conditions before using your coupons.<br><br>
+          You have to let us know before using the coupan.<br><br>
+          All the coupans have expriy date so keep that in mind.<br><br>
+          One coupan is only redeemable once.<br><br>
+          Once rdeemed and if you want to reuse it you have to give the rishwat to me.
+        </div>
+        <div class="checkbox-container">
+          <input type="checkbox" id="terms-checkbox" />
+          <label for="terms-checkbox">I agree to the terms & conditions</label>
+        </div>
+      </div>
+    </section>
+
+    <!-- COUPONS GRID -->
+    <section class="coupons-grid-section">
+      <div class="reset-container">
+        <button class="reset-btn" id="reset-btn" title="Reset all coupons">Reset All Coupons</button>
+      </div>
+      <div class="coupons-grid" id="coupons-grid">
+        <div class="coupon-card" data-coupon="cook">
+          <img src="Assets/coupan/cook.png" alt="Cook Coupon" />
+        </div>
+        <div class="coupon-card" data-coupon="cuddles">
+          <img src="Assets/coupan/cuddles.png" alt="Cuddles Coupon" />
+        </div>
+        <div class="coupon-card" data-coupon="dinner">
+          <img src="Assets/coupan/dinner.png" alt="Dinner Coupon" />
+        </div>
+        <div class="coupon-card" data-coupon="drive">
+          <img src="Assets/coupan/drive.png" alt="Drive Coupon" />
+        </div>
+        <div class="coupon-card" data-coupon="movie">
+          <img src="Assets/coupan/movie.png" alt="Movie Coupon" />
+        </div>
+        <div class="coupon-card" data-coupon="onewhish">
+          <img src="Assets/coupan/onewhish.png" alt="One Wish Coupon" />
+        </div>
+      </div>
+    </section>
+  </main>
+  
+  <!-- COUPON MODAL -->
+  <div class="coupon-modal" id="coupon-modal">
+    <div class="modal-backdrop"></div>
+    <div class="modal-container">
+      <button class="modal-close" id="modal-close" aria-label="Close modal">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+      <div class="modal-content">
+        <img id="modal-coupon-image" src="" alt="Coupon" />
+        <div class="modal-actions" id="modal-actions">
+          <button class="redeem-btn" id="redeem-btn">Mark as Redeemed</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- FOOTER -->
+  <footer class="footer">
+    Made with love, just for you by your Tillu<span class="heart">❤️</span>
+  </footer>
+
+  <script src="coupons.js"></script>
+</body>
+</html>
+

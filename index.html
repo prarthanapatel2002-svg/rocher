@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Just a moment</title>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Cormorant+Garamond:wght@400;500&family=Dancing+Script:wght@500&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css" />
+
+  
+</head>
+<body>
+
+  <!-- PASSWORD GATE -->
+  <div id="password-gate">
+    <div class="password-card">
+      <h1>Wait.</h1>
+      <p class="subtitle">
+        You think it would be this easy, hann? Now it is your turn to guess the password hehe &#x1F61C;. 
+      </p>
+
+      <input
+        type="password"
+        id="password-input"
+        placeholder="Enter the password"
+      />
+
+      <button id="submit-password">Try</button>
+
+      <p id="error-message"></p>
+
+      <button id="hint-button" class="hidden">
+        Okay… a small hint?
+      </button>
+
+      <p id="hint-text" class="hidden">
+        It’s the combination of your nickname and the day we went on our first date.
+      </p>
+    </div>
+  </div>
+
+  <!-- HOME CONTENT (hidden for now) -->
+  <!-- HOME CONTENT -->
+<main id="home-content" class="hidden">
+
+  <!-- NAVBAR -->
+  <header class="navbar">
+    <div class="nav-logo">Rocher</div>
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="letters.html">Letters</a>
+      <a href="music.html">Music</a>
+      <a href="coupons.html">Coupons</a>
+      <a href="game.html">Game</a>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-text">
+      <p class="hero-subtitle">Hi Mr. Lathiya,</p>
+      <h1 class="hero-title">HAPPY<br>BIRTHDAY! &lt;3</h1>
+      <p class="hero-description">A special day deserves a special celebration</p>
+    </div>
+
+    <div class="hero-image">
+      <div class="image-wrapper">
+        <img src="./Assets/bouquet.png" alt="Bouquet">
+        <div class="frame"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CAKE SECTION -->
+<section class="wish-section">
+  <img src="Assets/cake.gif" alt="Birthday wish" id="wish-gif" class="wish-gif">
+
+  <p class="tap-text">Tap to make a wish ✨</p>
+
+  <p id="wish-message" class="wish-message hidden">
+    I loveee youu, god has grandted your wish of us being together hehe! ❤️
+  </p>
+</section>
+
+
+
+  <!-- GRID NAV -->
+  <section class="grid-nav">
+    <div class="grid-item letter">
+      <img src="Assets/enevelope.png">
+      <h3>Letters</h3>
+      <a href="letters.html">Read it</a>
+    </div>
+
+    
+    <div class="grid-item coupons">
+      <img src="Assets/coupons.png">
+      <h3>Coupons</h3>
+      <a href="coupons.html">Claim them</a>
+    </div>
+
+    <div class="grid-item music">
+      <img src="Assets/music.png">
+      <h3>Music</h3>
+      <a href="music.html">Listen</a>
+    </div>
+
+    <div class="grid-item crossword">
+      <img src="Assets/game.png">
+      <h3>Game</h3>
+      <a href="game.html">Play</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    Made with love, just for you by your Tillu<span class="heart">❤️</span>
+  </footer>
+
+</main>
+
+  <script src="script.js"></script>
+</body>
+</html>
